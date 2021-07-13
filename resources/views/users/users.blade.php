@@ -30,9 +30,10 @@
                 <tbody>
                   @foreach($users as $key=> $user)
                   <tr>
-                    <td>{{$key+1}}</td>
+                    <td>{{$user->employee_id}}</td>
                     <td>{{$user->name}}</td>
                     <td>{{$user->email}}</td>
+                   
                     <td class="text-center">
                       
                    <img src="{{asset('images/'.$user->image)}}" height="50" width="50" class="shadow-xl">
@@ -40,9 +41,15 @@
                     </td>
                   
                     <td width="150">
-                      <a href="{{route('users.show',$user->id)}}" class="btn btn-primary"><i class="fa fa-eye"></i></a>
+                      <form action="{{route('users.destroy',$user->id)}}" method="post">
+                        @csrf
+                        @method('DELETE')
+                        <a href="{{route('users.show',$user->id)}}" class="btn btn-primary"><i class="fa fa-eye"></i></a>
                       <a href="{{route('users.edit',$user->id)}}" class="btn btn-info"><i class="fa fa-edit"></i></a>
-                      <a class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                         <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                      </form>
+                      
+                     
                     </td>
                   </tr>
                   @endforeach

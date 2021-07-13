@@ -2233,3 +2233,12 @@ section {
   font-size: 13px;
   color: #fff;
 }
+.page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: #94c045;
+    border-color: #ffffff;
+}
+.active{
+  color:#86B03C;
+}

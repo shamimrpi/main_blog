@@ -1,0 +1,4 @@
+[12-May-2021 00:37:57 America/New_York] PHP Warning:  require_once(/home/shamit/public_html/public/index.php): failed to open stream: No such file or directory in /home/shamit/public_html/server.php on line 21
+[12-May-2021 00:37:57 America/New_York] PHP Fatal error:  require_once(): Failed opening required '/home/shamit/public_html/public/index.php' (include_path='.:/opt/alt/php74/usr/share/pear') in /home/shamit/public_html/server.php on line 21
+[24-May-2021 04:32:38 America/New_York] PHP Warning:  require_once(/home/shamit/public_html/public/index.php): failed to open stream: No such file or directory in /home/shamit/public_html/server.php on line 21
+[24-May-2021 04:32:38 America/New_York] PHP Fatal error:  require_once(): Failed opening required '/home/shamit/public_html/public/index.php' (include_path='.:/opt/alt/php74/usr/share/pear') in /home/shamit/public_html/server.php on line 21

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Session;
+use App\Category;
+use App\Contact;
 class CategoryController extends Controller
 {
     /**
@@ -13,7 +15,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('website.index');
+        $this->data['contacts'] = Contact::all();
+        $this->data['categories'] = Category::all();
+        return view('category.category',$this->data);
     }
 
     /**
@@ -23,7 +27,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('category.create');
     }
 
     /**
@@ -34,7 +38,17 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+         $request->validate([
+            'name' => 'required'
+        ]);
+        
+        $category = new Category();
+        $category->name = $request->name;
+        $category->save();       
+         
+         
+         return redirect()->to('admin/category');
     }
 
     /**
@@ -79,6 +93,10 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
+       if(Category::find($id)->delete()){
+            Session::flash('message', 'Category Deleted Successfully');
+        }
+        return redirect()->to('admin/category');
     }
 }

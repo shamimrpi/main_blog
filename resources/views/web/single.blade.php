@@ -2,24 +2,7 @@
 @section('content')
   <main id="main">
 
-    <!-- ======= Breadcrumbs ======= -->
-    <section id="breadcrumbs" class="breadcrumbs">
-      <div class="breadcrumb-hero">
-        <div class="container">
-          <div class="breadcrumb-hero">
-            <h2>Blog</h2>
-            <p>Est dolorum ut non facere possimus quibusdam eligendi voluptatem. Quia id aut similique quia voluptas sit quaerat debitis. Rerum omnis ipsam aperiam consequatur laboriosam nemo harum praesentium. </p>
-          </div>
-        </div>
-      </div>
-      <div class="container">
-        <ol>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="blog.html">Blog</a></li>
-          <li>Dolorum optio tempore voluptas dignissimos cumque fuga qui quibusdam quia</li>
-        </ol>
-      </div>
-    </section><!-- End Breadcrumbs -->
+
 
     <!-- ======= Blog Section ======= -->
     <section id="blog" class="blog">
@@ -41,9 +24,11 @@
 
               <div class="entry-meta">
                 <ul>
-                  <li class="d-flex align-items-center"><i class="icofont-user"></i> <a href="blog-single.html">{{optional($post->user)->name}}</a></li>
-                  <li class="d-flex align-items-center"><i class="icofont-wall-clock"></i> <a href="blog-single.html"><time datetime="2020-01-01">{{$post->created_at}}</time></a></li>
+                  <li class="d-flex align-items-center"><i class="icofont-user"></i> <a href="#">{{optional($post->user)->name}}</a></li>
+                  <li class="d-flex align-items-center"><i class="icofont-wall-clock"></i> <a href="blog-single.html"><time datetime="2020-01-01">{{$post->created_at->format('d-D/m/Y')}}</time></a></li>
                   <li class="d-flex align-items-center"><i class="icofont-comment"></i> <a href="blog-single.html">{{$post->comments->count()}} Comments</a></li>
+
+                   <li class="d-flex align-items-center"><i class="icofont-comment"></i> <a href="{{route('category',$post->id)}}">{{optional($post->category)->name}} Cateogry</a></li>
                 </ul>
               </div>
 
@@ -77,19 +62,35 @@
                 </div>
 
               </div>
+              <div>
+                <h5 class="card-header">Comments 
+            <span class="comment-count btn btn-sm btn-outline-info">{{ count($post->comments) }}</span>
+            <small class="float-right">
+                <span title="Likes" id="saveLikeDislike" data-type="like" data-post="{{ $post->id}}" class="mr-2 btn btn-sm btn-outline-primary d-inline font-weight-bold">
+                    Like
+                    <span class="like-count">{{ $post->likes() }}</span>
+                </span>
+                <span title="Dislikes" id="saveLikeDislike" data-type="dislike" data-post="{{ $post->id}}" class="mr-2 btn btn-sm btn-outline-danger d-inline font-weight-bold">
+                    Dislike
+                    <span class="dislike-count">{{ $post->dislikes() }}</span>
+                </span>
+            </small>
+            </h5>
+              </div>
+
+
 
             </article><!-- End blog entry -->
 
             <div class="blog-author clearfix">
               <img src="assets/img/blog-author.jpg" class="rounded-circle float-left" alt="">
-              <h4>Jane Smith</h4>
-              <div class="social-links">
-                <a href="https://twitters.com/#"><i class="icofont-twitter"></i></a>
-                <a href="https://facebook.com/#"><i class="icofont-facebook"></i></a>
-                <a href="https://instagram.com/#"><i class="icofont-instagram"></i></a>
-              </div>
+              <h4>Recent Post</h4>
+              
               <p>
-                Itaque quidem optio quia voluptatibus dolorem dolor. Modi eum sed possimus accusantium. Quas repellat voluptatem officia numquam sint aspernatur voluptas. Esse et accusantium ut unde voluptas.
+            
+              {{--   @foreach($related as $relate) --}}
+                <p >
+          {{--       @endforeach --}}
               </p>
             </div><!-- End blog author bio -->
 
@@ -116,4 +117,36 @@
 
   </main><!-- End #main -->
 @endsection
+<script type="text/javascript">
+  // Save Like Or Dislike
+$(document).on('click','#saveLikeDislike',function(){
+    var _post=$(this).data('post');
+    var _type=$(this).data('type');
+    var vm=$(this);
+    // Run Ajax
+    $.ajax({
+        url:"{{ url('save-likedislike') }}",
+        type:"post",
+        dataType:'json',
+        data:{
+            post:_post,
+            type:_type,
+            _token:"{{ csrf_token() }}"
+        },
+        beforeSend:function(){
+            vm.addClass('disabled');
+        },
+        success:function(res){
+            if(res.bool==true){
+                vm.removeClass('disabled').addClass('active');
+                vm.removeAttr('id');
+                var _prevCount=$("."+_type+"-count").text();
+                _prevCount++;
+                $("."+_type+"-count").text(_prevCount);
+            }
+        }   
+    });
+});
+// End
+</script>
  

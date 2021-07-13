@@ -15,8 +15,8 @@
       </div>
       <div class="container">
         <ol>
-          <li><a href="index.html">Home</a></li>
-          <li>Blog</li>
+          <li><a href="{{route('blog')}}">Home</a></li>
+          
         </ol>
       </div>
     </section><!-- End Breadcrumbs -->
@@ -41,13 +41,13 @@
               <div class="entry-meta">
                 <ul>
                   <li class="d-flex align-items-center"><i class="icofont-user"></i> <a href="blog-single.html">{{optional($post->user)->name}}</a></li>
-                  <li class="d-flex align-items-center"><i class="icofont-wall-clock"></i> <a href=""><time datetime="2020-01-01">{{$post->created_at}}</time></a></li>
+                  <li class="d-flex align-items-center"><i class="icofont-wall-clock"></i> <a href=""><time datetime="2020-01-01">{{$post->created_at->format('d-D/m/Y')}}</time></a></li>
                 </ul>
               </div>
-              {{$posts->category->name}}
+              
               <div class="entry-content">
                 <p>
-                  {{$post->description}}
+                  {{$post->excerpt()}}
                 </p>
                 <div class="read-more">
                   <a href="{{route('single',$post->id)}}">Read More</a>
@@ -60,16 +60,8 @@
           @endforeach
 
         </div>
-       
-        <div class="blog-pagination" data-aos="fade-up">
-          <ul class="justify-content-center">
-            <li class="disabled"><i class="icofont-rounded-left"></i></li>
-            <li><a href="#">1</a></li>
-            <li class="active"><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#"><i class="icofont-rounded-right"></i></a></li>
-          </ul>
-        </div>
+       {{ $posts->links() }}
+      
 
       </div>
     </section><!-- End Blog Section -->

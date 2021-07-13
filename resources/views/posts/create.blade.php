@@ -33,7 +33,7 @@
             <!-- /.box-header -->
             <div class="box-body pad">
               
-                    <textarea id="editor1" name="description" rows="10" cols="80">
+                    <textarea name="description" rows="10" cols="80">
                                       This is my textarea to be replaced with CKEditor.
                     </textarea>
               

@@ -7,6 +7,7 @@ use App\Post;
 use App\User;
 use App\Category;
 use App\Header;
+use App\Contact;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
@@ -19,7 +20,7 @@ class PostsController extends Controller
      */
     public function index()
     {   
-        
+        $this->data['contacts'] = Contact::all();
         $this->data['posts'] = Post::all();
         $this->data['user_id'] = Auth::id();
         return view('posts.posts',$this->data);
@@ -32,6 +33,7 @@ class PostsController extends Controller
      */
     public function create()
     {
+        $this->data['contacts'] = Contact::all();
         $this->data['categories']  = Category::arrayForSelect();
         return view('posts.create',$this->data);
     }
@@ -104,6 +106,7 @@ class PostsController extends Controller
      */
     public function edit($id)
     {
+        $this->data['contacts'] = Contact::all();
         $this->data['post'] = Post::find($id);
         return view('posts.edit',$this->data);
     }

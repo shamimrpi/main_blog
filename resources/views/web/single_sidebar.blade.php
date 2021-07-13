@@ -17,7 +17,7 @@
                   
 
                   @foreach($categories as $category)
-                  <li><a href="#">{{$category->name}} <span>({{$category->posts->count()}})</span></a></li>
+                  <li><a href="{{route('category',$category->id)}}">{{$category->name}} <span>({{$category->posts->count()}})</span></a></li>
                   @endforeach
                   
                 </ul>
@@ -26,56 +26,19 @@
 
               <h3 class="sidebar-title">Recent Posts</h3>
               <div class="sidebar-item recent-posts">
+                @foreach($recents as $recent)
                 <div class="post-item clearfix">
-                  <img src="assets/img/blog-recent-1.jpg" alt="">
-                  <h4><a href="blog-single.html">Nihil blanditiis at in nihil autem</a></h4>
-                  <time datetime="2020-01-01">Jan 1, 2020</time>
+                  <img src="{{asset('images/'.$recent->image)}}" alt="">
+                  <h4><a href="{{url('/single',$recent->id)}}">{{$recent->title}}</a></h4>
+                  <time datetime="2020-01-01">{{$recent->created_at->format('M d, Y')}}</time>
                 </div>
+                @endforeach
 
-                <div class="post-item clearfix">
-                  <img src="assets/img/blog-recent-2.jpg" alt="">
-                  <h4><a href="blog-single.html">Quidem autem et impedit</a></h4>
-                  <time datetime="2020-01-01">Jan 1, 2020</time>
-                </div>
-
-                <div class="post-item clearfix">
-                  <img src="assets/img/blog-recent-3.jpg" alt="">
-                  <h4><a href="blog-single.html">Id quia et et ut maxime similique occaecati ut</a></h4>
-                  <time datetime="2020-01-01">Jan 1, 2020</time>
-                </div>
-
-                <div class="post-item clearfix">
-                  <img src="assets/img/blog-recent-4.jpg" alt="">
-                  <h4><a href="blog-single.html">Laborum corporis quo dara net para</a></h4>
-                  <time datetime="2020-01-01">Jan 1, 2020</time>
-                </div>
-
-                <div class="post-item clearfix">
-                  <img src="assets/img/blog-recent-5.jpg" alt="">
-                  <h4><a href="blog-single.html">Et dolores corrupti quae illo quod dolor</a></h4>
-                  <time datetime="2020-01-01">Jan 1, 2020</time>
-                </div>
+                
 
               </div><!-- End sidebar recent posts-->
 
-              <h3 class="sidebar-title">Tags</h3>
-              <div class="sidebar-item tags">
-                <ul>
-                  <li><a href="#">App</a></li>
-                  <li><a href="#">IT</a></li>
-                  <li><a href="#">Business</a></li>
-                  <li><a href="#">Business</a></li>
-                  <li><a href="#">Mac</a></li>
-                  <li><a href="#">Design</a></li>
-                  <li><a href="#">Office</a></li>
-                  <li><a href="#">Creative</a></li>
-                  <li><a href="#">Studio</a></li>
-                  <li><a href="#">Smart</a></li>
-                  <li><a href="#">Tips</a></li>
-                  <li><a href="#">Marketing</a></li>
-                </ul>
-
-              </div><!-- End sidebar tags-->
+            
 
             </div><!-- End sidebar -->
 
